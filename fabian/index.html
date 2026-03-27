@@ -225,20 +225,22 @@ body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--tex
           <div class="step-text">
             <strong id="cfg-phase2-header">Mo–Do, 07.–10.04. – Vor Ort in Dortmund</strong><br>
             Gemeinsam tiefer in Prozesse, Kunden und den Arbeitsalltag eintauchen. Du lernst das Team persönlich kennen und bekommst eine intensive Einführung in die laufenden Projekte.<br><br>
-            🏨 <strong>Hotel:</strong> Wir haben für dich gebucht – du brauchst dich um nichts zu kümmern.<br>
-            <div id="cfg-hotel-wrapper" style="background:#f8f8f8; border:1px solid #e3e3e3; border-radius:8px; padding:12px 14px; margin:10px 0; font-size:13px; line-height:1.7;">
-              <span id="cfg-hotel-block">
-                <strong style="color:#1a1a1a;">Hampton by Hilton Dortmund Phoenix See ★★★</strong><br>
-                📍 Fassstrasse 3, 44263 Dortmund-Hörde<br>
-                📞 +49 231 9479900<br>
-                <span style="display:inline-flex; gap:16px; margin-top:6px; flex-wrap:wrap;">
-                  <span>✅ Check-in: <strong>07.04. ab 15:00 Uhr</strong></span>
-                  <span>✅ Check-out: <strong>10.04. bis 12:00 Uhr</strong></span>
-                </span><br>
-                🍳 Frühstück inklusive · 🛏 Zimmer mit Queensize-Bett (Nichtraucher) · 📶 WLAN kostenlos
-              </span>
+            <div id="cfg-hotel-anreise-wrapper">
+              🏨 <strong>Hotel:</strong> Wir haben für dich gebucht – du brauchst dich um nichts zu kümmern.<br>
+              <div id="cfg-hotel-wrapper" style="background:#f8f8f8; border:1px solid #e3e3e3; border-radius:8px; padding:12px 14px; margin:10px 0; font-size:13px; line-height:1.7;">
+                <span id="cfg-hotel-block">
+                  <strong style="color:#1a1a1a;">Hampton by Hilton Dortmund Phoenix See ★★★</strong><br>
+                  📍 Fassstrasse 3, 44263 Dortmund-Hörde<br>
+                  📞 +49 231 9479900<br>
+                  <span style="display:inline-flex; gap:16px; margin-top:6px; flex-wrap:wrap;">
+                    <span>✅ Check-in: <strong>07.04. ab 15:00 Uhr</strong></span>
+                    <span>✅ Check-out: <strong>10.04. bis 12:00 Uhr</strong></span>
+                  </span><br>
+                  🍳 Frühstück inklusive · 🛏 Zimmer mit Queensize-Bett (Nichtraucher) · 📶 WLAN kostenlos
+                </span>
+              </div>
+              🚗 <strong>Anreise:</strong> Die Anreise organisierst du selbst. Du entscheidest frei, ob du vor Ort übernachtest oder täglich pendelst – beides ist in Ordnung. Gib uns einfach vorher kurz Bescheid, wie du es planst.
             </div>
-            🚗 <strong>Anreise:</strong> Die Anreise organisierst du selbst. Du entscheidest frei, ob du vor Ort übernachtest oder täglich pendelst – beides ist in Ordnung. Gib uns einfach vorher kurz Bescheid, wie du es planst.
           </div>
         </div>
       </div>
@@ -556,7 +558,7 @@ function initConfig() {
           '<span>✅ Check-out: <strong>' + MA.hotel.checkout + '</strong></span>' +
         '</span><br>' + MA.hotel.extras;
     } else {
-      document.getElementById('cfg-hotel-wrapper').style.display = 'none';
+      document.getElementById('cfg-hotel-anreise-wrapper').style.display = 'none';
     }
   } else {
     document.getElementById('cfg-voror-cell').style.display = 'none';
