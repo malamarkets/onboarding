@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Willkommen bei mala markets</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #f5f5f5; --white: #ffffff; --coal: #1a1a1a; --red: #d42b2b;
+  --red-light: #fdf0f0; --border: #e3e3e3; --muted: #888; --text: #1a1a1a;
+  --check: #27a05a; --check-bg: #edf7f1;
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.7; }
+
+/* TOPBAR */
+.topbar { background: var(--coal); padding: 0 40px; height: 54px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+.t-logo { display: flex; align-items: center; gap: 5px; font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 17px; color: white; letter-spacing: -0.02em; text-decoration: none; }
+.t-logo .outline { -webkit-text-stroke: 1.5px white; color: transparent; }
+.t-nav { display: flex; gap: 2px; }
+.t-pill { padding: 6px 14px; border-radius: 100px; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.45); background: transparent; border: none; cursor: pointer; text-decoration: none; transition: all 0.18s; font-family: 'Montserrat', sans-serif; }
+.t-pill:hover { color: rgba(255,255,255,0.85); background: rgba(255,255,255,0.07); }
+.t-pill.active { color: #f07070; background: rgba(212,43,43,0.18); }
+
+/* HERO */
+.hero { background: var(--coal); padding: 60px 40px 68px; position: relative; overflow: hidden; }
+.hero::after { content: '🚀'; position: absolute; right: 40px; bottom: -32px; font-size: 220px; opacity: 0.05; line-height: 1; pointer-events: none; }
+.hero-in { max-width: 860px; margin: 0 auto; position: relative; animation: fadeUp 0.55s ease both; }
+.badge { display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(212,43,43,0.4); background: rgba(212,43,43,0.12); border-radius: 100px; padding: 5px 14px 5px 10px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #f07070; margin-bottom: 26px; font-family: 'Montserrat', sans-serif; }
+.badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--red); animation: blink 2s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.hero h1 { font-family: 'Montserrat', sans-serif; font-size: clamp(30px, 5vw, 50px); font-weight: 800; line-height: 1.12; color: white; letter-spacing: -0.025em; margin-bottom: 18px; }
+.hero h1 em { color: var(--red); font-style: normal; }
+.hero p { color: rgba(255,255,255,0.45); font-size: 15px; font-weight: 300; max-width: 480px; line-height: 1.8; }
+.hero-meta { margin-top: 40px; display: inline-flex; border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden; }
+.m-cell { padding: 14px 22px; border-right: 1px solid rgba(255,255,255,0.1); }
+.m-cell:last-child { border-right: none; }
+.m-label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.3); font-family: 'Montserrat', sans-serif; margin-bottom: 4px; }
+.m-value { font-size: 13px; color: rgba(255,255,255,0.8); font-weight: 500; }
+.m-value.check { color: #4ade80; }
+
+/* MAIN */
+.main { max-width: 860px; margin: 0 auto; padding: 60px 40px 80px; }
+
+/* SECTION */
+.sec { margin-bottom: 68px; opacity: 0; transform: translateY(18px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.sec.visible { opacity: 1; transform: translateY(0); }
+.sec-hd { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.s-tag { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--red); background: var(--red-light); border: 1px solid rgba(212,43,43,0.15); padding: 4px 10px; border-radius: 6px; }
+.s-title { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; color: var(--coal); letter-spacing: -0.015em; }
+
+/* INFO BOX */
+.info-box { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 20px 24px; font-size: 14px; color: #555; line-height: 1.85; }
+.info-box strong { color: var(--coal); font-weight: 600; }
+
+/* CALL HIGHLIGHT */
+.call-highlight { background: rgba(212,43,43,0.06); border: 1px solid rgba(212,43,43,0.2); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+.call-highlight-icon { font-size: 18px; flex-shrink: 0; }
+.call-highlight-text { font-size: 13px; color: var(--coal); line-height: 1.5; }
+.call-highlight-text strong { font-weight: 700; color: var(--red); }
+
+/* TOOL GROUPS */
+.grp { margin-bottom: 28px; }
+.grp-label { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; font-family: 'Montserrat', sans-serif; }
+.tgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(238px, 1fr)); gap: 8px; }
+
+/* TOOL CARD */
+.tc { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 15px 18px; cursor: pointer; transition: border-color 0.18s, box-shadow 0.18s, transform 0.18s; }
+.tc:hover { border-color: var(--red); box-shadow: 0 4px 18px rgba(212,43,43,0.09); transform: translateY(-1px); }
+.tc-hd { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+.tc-icon { width: 32px; height: 32px; border-radius: 7px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; overflow: hidden; }
+.tc-icon img { width: 22px; height: 22px; object-fit: contain; }
+.tc-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--coal); }
+.tc-badge { margin-left: auto; font-size: 9px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 2px 7px; border-radius: 100px; background: var(--bg); border: 1px solid var(--border); color: var(--muted); white-space: nowrap; font-family: 'Montserrat', sans-serif; }
+.tc-desc { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.tc-detail { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+.tc-detail.open { max-height: 300px; }
+.tc-detail-inner { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border); font-size: 12px; color: #888; line-height: 1.7; }
+.tc-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 8px; padding: 5px 12px; background: var(--coal); color: white; border-radius: 6px; font-size: 11px; font-weight: 600; font-family: 'Montserrat', sans-serif; text-decoration: none; transition: background 0.18s, transform 0.18s; letter-spacing: 0.02em; }
+.tc-link:hover { background: var(--red); transform: translateY(-1px); }
+.tc-link svg { width: 12px; height: 12px; }
+
+/* CHECKLIST */
+.prog-row { display: flex; align-items: center; gap: 14px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 14px 20px; margin-bottom: 14px; }
+.prog-lbl { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.prog-track { flex: 1; height: 5px; background: var(--bg); border-radius: 100px; overflow: hidden; }
+.prog-fill { height: 100%; width: 0%; background: var(--red); border-radius: 100px; transition: width 0.4s ease; }
+.prog-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--coal); white-space: nowrap; min-width: 30px; text-align: right; }
+.cl { display: flex; flex-direction: column; gap: 6px; }
+.ci { display: flex; align-items: flex-start; gap: 12px; background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 13px 18px; cursor: pointer; transition: border-color 0.18s, background 0.18s; user-select: none; }
+.ci:hover { border-color: #ccc; }
+.ci.done { background: var(--check-bg); border-color: rgba(39,160,90,0.22); }
+.ci-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 700; color: #d0d0d0; flex-shrink: 0; min-width: 22px; padding-top: 2px; }
+.ci.done .ci-num { color: rgba(39,160,90,0.35); }
+.ci-box { width: 19px; height: 19px; border-radius: 5px; border: 2px solid #d8d8d8; flex-shrink: 0; margin-top: 2px; display: flex; align-items: center; justify-content: center; transition: all 0.18s; }
+.ci.done .ci-box { background: var(--check); border-color: var(--check); }
+.ci-check { font-size: 10px; font-weight: 700; color: white; opacity: 0; transition: opacity 0.18s; }
+.ci.done .ci-check { opacity: 1; }
+.ci-body { flex: 1; }
+.ci-title { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 600; color: var(--coal); transition: color 0.18s; }
+.ci.done .ci-title { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(39,160,90,0.45); }
+.ci-sub { font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
+.ci-link { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 3px 10px; background: var(--coal); color: white; border-radius: 5px; font-size: 10px; font-weight: 600; font-family: 'Montserrat', sans-serif; text-decoration: none; transition: background 0.18s; letter-spacing: 0.02em; }
+.ci-link:hover { background: var(--red); }
+.ci-icon { width: 26px; height: 26px; border-radius: 6px; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; margin-top: 1px; }
+.ci-icon img { width: 17px; height: 17px; object-fit: contain; }
+
+/* BUDDY */
+.buddy { background: var(--white); border: 1px solid var(--border); border-left: 3px solid var(--red); border-radius: 10px; padding: 22px 24px; display: flex; align-items: center; gap: 18px; margin-bottom: 28px; }
+.buddy-avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.buddy-info { flex: 1; }
+.buddy-label { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 4px; }
+.buddy-name { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--coal); }
+.buddy-desc { font-size: 13px; color: #666; line-height: 1.6; margin-top: 2px; }
+
+/* TEAM */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.tm { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; text-align: center; transition: border-color 0.18s, transform 0.18s; }
+.tm:hover { border-color: var(--red); transform: translateY(-1px); }
+.tm-avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--bg); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 18px; margin: 0 auto 10px; }
+.tm-name { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--coal); }
+.tm-role { font-size: 11px; color: var(--muted); margin-top: 3px; line-height: 1.4; }
+.tm.highlight { border-left: 3px solid var(--red); }
+
+/* STEP LIST */
+.steps { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+.step { display: flex; align-items: flex-start; gap: 14px; }
+.step-num { font-family: 'Montserrat', sans-serif; font-size: 11px; font-weight: 800; color: var(--red); background: var(--red-light); border: 1px solid rgba(212,43,43,0.15); width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+.step-text { font-size: 14px; color: #555; line-height: 1.7; }
+.step-text strong { color: var(--coal); }
+
+/* TIP */
+.tip { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 20px 24px; margin-bottom: 10px; }
+.tip-lbl { font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); margin-bottom: 8px; }
+.tip p { font-size: 14px; color: #666; line-height: 1.8; }
+
+/* FOOTER */
+.footer { background: var(--coal); padding: 26px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.footer-tagline { font-size: 13px; color: rgba(255,255,255,0.35); font-style: italic; }
+.footer-logo { font-family: 'Montserrat', sans-serif; font-weight: 800; font-size: 15px; color: white; display: flex; align-items: center; gap: 5px; letter-spacing: -0.01em; }
+.footer-logo .outline { -webkit-text-stroke: 1.5px white; color: transparent; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+/* GAMIFICATION */
+.confetti-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 9999; }
+.toast { position: fixed; top: -80px; left: 50%; transform: translateX(-50%); background: var(--coal); color: white; padding: 14px 28px; border-radius: 12px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; z-index: 10000; transition: top 0.45s cubic-bezier(0.34, 1.56, 0.64, 1); box-shadow: 0 8px 32px rgba(0,0,0,0.25); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.toast.show { top: 20px; }
+.toast-emoji { font-size: 22px; }
+.milestone-glow { animation: glowPulse 0.6s ease; }
+@keyframes glowPulse { 0%{box-shadow: 0 0 0 0 rgba(212,43,43,0.4)} 70%{box-shadow: 0 0 0 12px rgba(212,43,43,0)} 100%{box-shadow: 0 0 0 0 rgba(212,43,43,0)} }
+
+@media(max-width:600px) {
+  .t-nav { display: none; }
+  .hero, .footer { padding-left: 20px; padding-right: 20px; }
+  .main { padding: 40px 20px 60px; }
+  .tgrid { grid-template-columns: 1fr; }
+  .hero-meta { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="t-logo">mala <span style="font-size:17px">🚀</span> <span class="outline">markets</span></div>
+  <nav class="t-nav">
+    <a class="t-pill active" href="#erster-tag">Fahrplan</a>
+    <a class="t-pill" href="#team">Team</a>
+    <a class="t-pill" href="#tools">Tools</a>
+    <a class="t-pill" href="#setup">Setup</a>
+    <a class="t-pill" href="#checkliste">Checkliste</a>
+    <a class="t-pill" href="#hinweise">Hinweise</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-in">
+    <div class="badge"><span class="badge-dot"></span>Onboarding</div>
+    <h1>Willkommen im Team,<br><em id="cfg-name">Dieter.</em></h1>
+    <p>Hier findest du strukturiert alles, was du für deinen Start bei mala markets brauchst – von den ersten Tool-Zugängen bis zur vollständigen Onboarding-Checkliste.</p>
+    <div class="hero-meta">
+      <div class="m-cell"><div class="m-label">Startdatum</div><div class="m-value" id="cfg-start-date">1. April</div></div>
+      <div class="m-cell" id="cfg-voror-cell"><div class="m-label">Vor Ort</div><div class="m-value" id="cfg-vor-ort-display">7.–10. April</div></div>
+      <div class="m-cell"><div class="m-label">E-Mail</div><div class="m-value" id="cfg-email-display">d.nikolai@mala-markets.com</div></div>
+      <div class="m-cell" id="cfg-equipment-cell"><div class="m-label">Equipment</div><div class="m-value check">✅ Erhalten</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- 01 FAHRPLAN -->
+  <div class="sec" id="erster-tag">
+    <div class="sec-hd"><span class="s-tag">01</span><span class="s-title">Dein Fahrplan</span></div>
+    <div class="buddy">
+      <div class="buddy-avatar">🚀</div>
+      <div class="buddy-info">
+        <div class="buddy-label">Dein Rocket-Buddy</div>
+        <div class="buddy-name" id="cfg-buddy-name">Clarissa</div>
+        <div class="buddy-desc" id="cfg-buddy-desc">Deine persönliche Ansprechpartnerin für alle Fragen – egal ob zu Tools, Prozessen oder dem Arbeitsalltag. Schreib ihr jederzeit über Microsoft Teams.</div>
+      </div>
+    </div>
+    <div class="info-box">
+      Alle Einladungen und Zugänge sollten an <strong id="cfg-email-text">d.nikolai@mala-markets.com</strong> gegangen sein. Prüfe bitte, ob du überall Zugriff hast. Falls irgendwo etwas fehlt, melde dich direkt bei Clarissa oder einem Team-Mitglied über Microsoft Teams.
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text">
+            <strong id="cfg-phase1-header">Mi–Fr, 01.–03.04. – Onboarding (remote)</strong><br>
+            <div class="call-highlight" id="cfg-call-highlight" style="margin-top:10px; margin-bottom:10px;">
+              <span class="call-highlight-icon">📞</span>
+              <span class="call-highlight-text"><strong id="cfg-call-text">Onboarding Call mit dem Team – 01.04. um 09:00 Uhr.</strong> Die Kalendereinladung hast du bereits erhalten.</span>
+            </div>
+            Danach: Alle Tools installieren und einrichten (siehe Setup-Checkliste). Anschließend die Onboarding-Checkliste abarbeiten und mala markets kennenlernen.
+          </div>
+        </div>
+        <div class="step" id="cfg-voror-step">
+          <div class="step-num">2</div>
+          <div class="step-text">
+            <strong id="cfg-phase2-header">Mo–Do, 07.–10.04. – Vor Ort in Dortmund</strong><br>
+            Gemeinsam tiefer in Prozesse, Kunden und den Arbeitsalltag eintauchen. Du lernst das Team persönlich kennen und bekommst eine intensive Einführung in die laufenden Projekte.<br><br>
+            🏨 <strong>Hotel:</strong> Wir haben für dich gebucht – du brauchst dich um nichts zu kümmern.<br>
+            <div id="cfg-hotel-wrapper" style="background:#f8f8f8; border:1px solid #e3e3e3; border-radius:8px; padding:12px 14px; margin:10px 0; font-size:13px; line-height:1.7;">
+              <span id="cfg-hotel-block">
+                <strong style="color:#1a1a1a;">Hampton by Hilton Dortmund Phoenix See ★★★</strong><br>
+                📍 Fassstrasse 3, 44263 Dortmund-Hörde<br>
+                📞 +49 231 9479900<br>
+                <span style="display:inline-flex; gap:16px; margin-top:6px; flex-wrap:wrap;">
+                  <span>✅ Check-in: <strong>07.04. ab 15:00 Uhr</strong></span>
+                  <span>✅ Check-out: <strong>10.04. bis 12:00 Uhr</strong></span>
+                </span><br>
+                🍳 Frühstück inklusive · 🛏 Zimmer mit Queensize-Bett (Nichtraucher) · 📶 WLAN kostenlos
+              </span>
+            </div>
+            🚗 <strong>Anreise:</strong> Die Anreise organisierst du selbst. Du entscheidest frei, ob du vor Ort übernachtest oder täglich pendelst – beides ist in Ordnung. Gib uns einfach vorher kurz Bescheid, wie du es planst.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box" style="margin-top:1.5rem;">
+      <strong style="font-size:1.1rem;">📅 Dein Wochenrhythmus bei mala markets</strong>
+      <div class="steps" style="margin-top:1rem;">
+        <div class="step">
+          <div class="step-num" style="background:var(--red);">Mo</div>
+          <div class="step-text">
+            <strong>Weekly Call – Montag, 10:00 Uhr</strong><br>
+            Wir starten die Woche gemeinsam mit dem ganzen Team. Hier sprechen wir darüber, was gerade in der Agentur passiert, welche Themen anstehen und wie die Woche aussieht.<br><br>
+            🧘 <strong>Warm-up:</strong> Vor dem Call gibt es eine kleine Stretching- oder Aufwärm-Session (ca. 10 Min.), die wir vorbereiten. Funktioniert im Home Office genauso wie im Büro – einfach mitmachen!
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num" style="background:var(--red);">Do</div>
+          <div class="step-text">
+            <strong>Weekly Coffee Call – Donnerstag, 15:00 Uhr</strong><br>
+            Zum Wochenausklang nehmen wir uns eine halbe Stunde Zeit für einen lockeren Austausch: Wie war die Woche? Was steht an? Was läuft privat? Der Coffee Call hilft, dass wir uns alle als Teil von mala markets fühlen – auch wenn wir remote arbeiten.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 02 TEAM -->
+  <div class="sec" id="team">
+    <div class="sec-hd"><span class="s-tag">02</span><span class="s-title">Dein Team</span></div>
+    <div class="team-grid">
+      <div class="tm highlight"><div class="tm-avatar">👨‍💼</div><div class="tm-name">Matteo Giazzi</div><div class="tm-role">Teamleiter & Geschäftsführer</div></div>
+      <div class="tm"><div class="tm-avatar">👨‍💼</div><div class="tm-name">Lars Seuss</div><div class="tm-role">Geschäftsführer</div></div>
+      <div class="tm highlight"><div class="tm-avatar">🚀</div><div class="tm-name">Clarissa</div><div class="tm-role">Marketplace Managerin<br><span style="color:var(--red);font-weight:600;">Dein Rocket-Buddy</span></div></div>
+      <div class="tm"><div class="tm-avatar">👤</div><div class="tm-name">Nick</div><div class="tm-role">Marketplace Manager</div></div>
+      <div class="tm"><div class="tm-avatar">👤</div><div class="tm-name">Jerome</div><div class="tm-role">Marketplace Manager</div></div>
+      <div class="tm"><div class="tm-avatar">🔧</div><div class="tm-name">Leon</div><div class="tm-role">Troubleshooter &<br>Ansprechpartner RELEVIO</div></div>
+      <div class="tm"><div class="tm-avatar">📣</div><div class="tm-name">Laureen</div><div class="tm-role">Marketing Assistenz</div></div>
+      <div class="tm"><div class="tm-avatar">🎨</div><div class="tm-name">Maximilian</div><div class="tm-role">Grafik</div></div>
+    </div>
+  </div>
+
+  <!-- 03 TOOLS -->
+  <div class="sec" id="tools">
+    <div class="sec-hd"><span class="s-tag">03</span><span class="s-title">Tools & Zugänge</span></div>
+
+    <div class="grp">
+      <div class="grp-label">Kommunikation & Organisation</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=teams.microsoft.com&sz=128" alt="Teams"></div><span class="tc-name">Microsoft Teams</span><span class="tc-badge">Primär</span></div>
+          <div class="tc-desc">Interne und externe Kundenkommunikation.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Interne und externe Kundenkommunikation. Jeder Kunde hat einen eigenen Teams-Kanal – dort läuft fast die gesamte Kommunikation. Auch intern nutzen wir Teams für Updates, Arbeitsanweisungen und den Chat zwischen Team-Mitgliedern.<br><a class="tc-link" href="https://www.microsoft.com/de-de/microsoft-teams/download-app" target="_blank">⬇ Download Teams</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=wrike.com&sz=128" alt="Wrike"></div><span class="tc-name">Wrike</span><span class="tc-badge">Download</span></div>
+          <div class="tc-desc">Projektmanagement, Aufgaben und Deadlines.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Logge dich mit deiner mala markets Mail-Adresse ein. Hier findest du alle Projekte, Aufgaben und To-Dos. Nutze Wrike, um dir Aufgaben aufzuschreiben, mit anderen zu kommunizieren, Deadlines einzuhalten und deinen Arbeitsalltag zu strukturieren.<br><a class="tc-link" href="https://www.wrike.com/apps/" target="_blank">⬇ Download Wrike</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=dropbox.com&sz=128" alt="Dropbox"></div><span class="tc-name">Dropbox</span><span class="tc-badge">Download</span></div>
+          <div class="tc-desc">Zentraler Dateispeicher für das gesamte Team.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Alle relevanten Dateien werden in der Dropbox gesichert – nichts lokal auf dem Computer speichern. Ordner-Zugänge wurden separat freigeschaltet. Jedes Team-Mitglied sollte stets Zugriff auf die Dateien haben.<br><a class="tc-link" href="https://www.dropbox.com/install" target="_blank">⬇ Download Dropbox</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-label">Zeiterfassung</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=mocoapp.com&sz=128" alt="MOCO"></div><span class="tc-name">MOCO</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Zeiterfassung und Projektzuordnung.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Logge dich täglich ein, um deine Arbeitszeiten festzuhalten und auf Kundenprojekte zu buchen. Bitte trage spätestens am Ende jedes Arbeitstages deine Stunden ein – sie gelten als Zeiterfassung.<br><a class="tc-link" href="https://www.mocoapp.com/" target="_blank">→ MOCO öffnen</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-label">SEO & Produktoptimierung</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=amalyze.com&sz=128" alt="Amalyze"></div><span class="tc-name">Amalyze</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">SEO-Analysen und Keyword-Recherchen auf Amazon.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">SEO-Optimierungen führen wir mit Amalyze durch. Dein Zugang ist in Roboform hinterlegt. Bitte schicke deine Handynummer für die 2FA-Einrichtung an Matteo (per Teams oder E-Mail).<br><a class="tc-link" href="https://www.amalyze.com/" target="_blank">→ Amalyze öffnen</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-label">Amazon Tools</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=amalyze.com&sz=128" alt="Amalyze"></div><span class="tc-name">Amalyze</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Keyword-Analyse und Listing-Optimierung für Amazon.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Wird sowohl für SEO-Analysen als auch direkt im Amazon-Kontext für Keyword-Recherchen und Listing-Optimierung eingesetzt. Zugang über Roboform.<br><a class="tc-link" href="https://www.amalyze.com/" target="_blank">→ Amalyze öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=sellerboard.com&sz=128" alt="Sellerboard"></div><span class="tc-name">Sellerboard</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Performance-Tracking der Amazon-Kundenaccounts.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Wir nutzen Sellerboard, um die Performance unserer Kunden zu tracken. Einführung via Tutorial. Passwort über Roboform abrufbar.<br><a class="tc-link" href="https://sellerboard.com/" target="_blank">→ Sellerboard öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=merchantspring.io&sz=128" alt="Merchantspring"></div><span class="tc-name">Merchantspring</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Account-Übersichten und Report-Erstellung.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Schneller Überblick über den Status aller Accounts. Hauptsächlich für Reports und allgemeines Monitoring.<br><a class="tc-link" href="https://mm.merchantspring.io/" target="_blank">→ Merchantspring öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=bidx.io&sz=128" alt="BidX"></div><span class="tc-name">BidX</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Amazon-Tool für Verwaltung und Optimierung.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Amazon-Tool für Verwaltung und Optimierung. Zugang über Roboform. Details und Einführung erfolgen im Onboarding-Prozess.<br><a class="tc-link" href="https://www.bidx.io/" target="_blank">→ BidX öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=bidx.io&sz=128" alt="BidX"></div><span class="tc-name">BidX Integrator</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Integrations-Erweiterung für BidX.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Ergänzt BidX um erweiterte Integrationsmöglichkeiten. Zugang über Roboform.<br><a class="tc-link" href="https://www.bidx.io/" target="_blank">→ BidX öffnen</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-label">Weitere Tools</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=roboform.com&sz=128" alt="Roboform"></div><span class="tc-name">Roboform</span><span class="tc-badge">Download + Plugin</span></div>
+          <div class="tc-desc">Zentraler Passwort-Manager für alle Tools.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Hier findest du alle Passwörter für unsere Portale, Websites und Tools. Die Passwörter sind direkt mit den jeweiligen Seiten verknüpft – einfach in der Suchleiste nach dem Programm suchen und mit einem Klick einloggen.<br><a class="tc-link" href="https://www.roboform.com/de/download" target="_blank">⬇ Download Roboform</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=tldv.io&sz=128" alt="tldv"></div><span class="tc-name">tl;dv</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Meeting-Aufzeichnung, Follow-up & NoteTaker.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Zeichnet Meetings auf und erstellt automatische Zusammenfassungen und Follow-up-Notizen. Wird bei Kunden-Calls eingesetzt.<br><a class="tc-link" href="https://tldv.io/" target="_blank">→ tl;dv öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=calendly.com&sz=128" alt="Calendly"></div><span class="tc-name">Calendly</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">Terminplanung und Meeting-Buchung.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Mit Calendly können Kunden und Partner unkompliziert Termine mit uns buchen. Ideal für die Koordination von Calls und Meetings.<br><a class="tc-link" href="https://calendly.com/" target="_blank">→ Calendly öffnen</a></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="grp-label">KI-Modelle & Übersetzung</div>
+      <div class="tgrid">
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=claude.ai&sz=128" alt="Claude"></div><span class="tc-name">Claude</span><span class="tc-badge">Primär</span></div>
+          <div class="tc-desc">Unser KI-Tool im Arbeitsalltag.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Nutze Claude so viel wie möglich und vereinfache dir den Arbeitsalltag. Du hast ein eigenes Konto – lade dir die Mac App herunter und nutze Claude dort.<br><a class="tc-link" href="https://claude.com/download" target="_blank">⬇ Claude Mac App</a> <a class="tc-link" href="https://claude.ai/" target="_blank">→ Claude öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=gemini.google.com&sz=128" alt="Gemini"></div><span class="tc-name">Gemini</span><span class="tc-badge">Browser</span></div>
+          <div class="tc-desc">KI-Modell von Google.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Googles KI-Modell – ergänzt Claude je nach Anwendungsfall.<br><a class="tc-link" href="https://gemini.google.com/" target="_blank">→ Gemini öffnen</a></div></div>
+        </div>
+        <div class="tc" onclick="toggleTool(this, event)">
+          <div class="tc-hd"><div class="tc-icon"><img src="https://www.google.com/s2/favicons?domain=deepl.com&sz=128" alt="DeepL"></div><span class="tc-name">DeepL</span><span class="tc-badge">Download</span></div>
+          <div class="tc-desc">Übersetzungen und Textoptimierung.</div>
+          <div class="tc-detail"><div class="tc-detail-inner">Übersetzungen sowie Rechtschreibkorrektur und Syntaxverbesserung mit DeepL Write.<br><a class="tc-link" href="https://www.deepl.com/de/app/" target="_blank">⬇ Download DeepL</a></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 SETUP -->
+  <div class="sec" id="setup">
+    <div class="sec-hd"><span class="s-tag">04</span><span class="s-title">Setup-Checkliste</span></div>
+    <p style="font-size:14px; color:#666; margin-bottom:16px; line-height:1.7;">Installiere und richte als Erstes alle Tools ein. Hake jeden Punkt ab, sobald du Zugang hast und das Tool funktioniert.</p>
+    <div class="prog-row">
+      <span class="prog-lbl">Setup</span>
+      <div class="prog-track"><div class="prog-fill" id="setup-fill"></div></div>
+      <span class="prog-num" id="setup-num">0 / 11</span>
+    </div>
+    <div class="cl" id="setup-list">
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">01</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=roboform.com&sz=64" alt="Roboform"></div><div class="ci-body"><div class="ci-title">Roboform einloggen + Chrome Plugin einrichten</div><div class="ci-sub">Logge dich mit den Zugangsdaten vom Team ein und schließe die Chrome-Plugin-Einrichtung ab – damit hast du Zugang zu allen anderen Tools.<br><a class="ci-link" href="https://www.roboform.com/" target="_blank">→ Roboform öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">02</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=teams.microsoft.com&sz=64" alt="Teams"></div><div class="ci-body"><div class="ci-title">Microsoft Teams einloggen &amp; testen</div><div class="ci-sub">Logge dich mit deiner mala markets E-Mail ein und stelle sicher, dass du alle Kanäle siehst.<br><a class="ci-link" href="https://teams.microsoft.com/" target="_blank">→ Teams öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">03</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=wrike.com&sz=64" alt="Wrike"></div><div class="ci-body"><div class="ci-title">Wrike einloggen &amp; testen</div><div class="ci-sub">Logge dich mit deiner mala markets E-Mail ein und teste die Verbindung.<br><a class="ci-link" href="https://www.wrike.com/" target="_blank">→ Wrike öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">04</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=dropbox.com&sz=64" alt="Dropbox"></div><div class="ci-body"><div class="ci-title">Dropbox einrichten (Login + Finder-Integration)</div><div class="ci-sub">Logge dich mit den Login-Daten aus der E-Mail ein. Schließe danach die Mac-Einrichtung ab, sodass Dropbox im Finder angezeigt wird. Nichts lokal speichern – alles läuft über Dropbox.<br><a class="ci-link" href="https://www.dropbox.com/" target="_blank">→ Dropbox öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">05</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=deepl.com&sz=64" alt="DeepL"></div><div class="ci-body"><div class="ci-title">DeepL installieren</div><div class="ci-sub">Übersetzungen und Rechtschreibprüfung.<br><a class="ci-link" href="https://www.deepl.com/de/app/" target="_blank">⬇ Download DeepL</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">06</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=mocoapp.com&sz=64" alt="MOCO"></div><div class="ci-body"><div class="ci-title">MOCO Zugang testen</div><div class="ci-sub">Im Browser einloggen – Passwort über Roboform.<br><a class="ci-link" href="https://www.mocoapp.com/" target="_blank">→ MOCO öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">07</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=amalyze.com&sz=64" alt="Amalyze"></div><div class="ci-body"><div class="ci-title">Amalyze Zugang testen</div><div class="ci-sub">Zugang über Roboform. Bitte schicke deine Handynummer für die 2FA an Matteo (per Teams oder E-Mail).<br><a class="ci-link" href="https://www.amalyze.com/" target="_blank">→ Amalyze öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">08</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=sellerboard.com&sz=64" alt="Sellerboard"></div><div class="ci-body"><div class="ci-title">Sellerboard Zugang testen</div><div class="ci-sub">Performance-Tracking – Passwort über Roboform.<br><a class="ci-link" href="https://sellerboard.com/" target="_blank">→ Sellerboard öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">09</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=merchantspring.io&sz=64" alt="Merchantspring"></div><div class="ci-body"><div class="ci-title">Merchantspring Zugang testen</div><div class="ci-sub">Account-Übersichten und Reports.<br><a class="ci-link" href="https://mm.merchantspring.io/" target="_blank">→ Merchantspring öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">10</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=bidx.io&sz=64" alt="BidX"></div><div class="ci-body"><div class="ci-title">BidX Zugang testen</div><div class="ci-sub">Amazon-Tool – Passwort über Roboform.<br><a class="ci-link" href="https://www.bidx.io/" target="_blank">→ BidX öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleSetup(this, event)"><span class="ci-num">11</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=calendly.com&sz=64" alt="Calendly"></div><div class="ci-body"><div class="ci-title">Calendly Zugang testen</div><div class="ci-sub">Terminplanung und Meeting-Buchung.<br><a class="ci-link" href="https://calendly.com/" target="_blank">→ Calendly öffnen</a></div></div></div>
+    </div>
+  </div>
+
+  <!-- 05 CHECKLISTE -->
+  <div class="sec" id="checkliste">
+    <div class="sec-hd"><span class="s-tag">05</span><span class="s-title">Onboarding-Checkliste</span></div>
+    <p style="font-size:14px; color:#666; margin-bottom:16px; line-height:1.7;">Wenn alle Tools eingerichtet sind, arbeite diese Checkliste sorgfältig durch.</p>
+    <div class="prog-row">
+      <span class="prog-lbl">Fortschritt</span>
+      <div class="prog-track"><div class="prog-fill" id="prog-fill"></div></div>
+      <span class="prog-num" id="prog-num">0 / 9</span>
+    </div>
+    <div class="cl" id="check-list">
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">01</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=wrike.com&sz=64" alt="Wrike"></div><div class="ci-body"><div class="ci-title">Wrike Basics verstehen</div><div class="ci-sub">Bitte schau dir die Einführungsvideos unbedingt Schritt für Schritt an.<br><a class="ci-link" href="https://help.wrike.com/hc/de/categories/201188625-Wrike-Videos?type=videos&category=for-admins" target="_blank">→ Wrike Videos ansehen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">02</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=wrike.com&sz=64" alt="Wrike"></div><div class="ci-body"><div class="ci-title">Wrike Tutorial abschließen</div><div class="ci-sub">Schritt-für-Schritt-Anleitung zur vollständigen Tool-Nutzung.<br><a class="ci-link" href="https://help.wrike.com/hc/de/categories/201188625-Wrike-Videos?type=videos&category=for-admins" target="_blank">→ Wrike Tutorial öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">03</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=mocoapp.com&sz=64" alt="MOCO"></div><div class="ci-body"><div class="ci-title">MOCO Tutorials durcharbeiten</div><div class="ci-sub">Einführung in die Zeiterfassung und Projektverwaltung. Bitte trage spätestens am Ende jedes Arbeitstages deine Stunden ein – sie gelten als Zeiterfassung.<br><a class="ci-link" href="https://vimeo.com/showcase/moco-tutorials" target="_blank">→ MOCO Tutorials ansehen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">04</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=sellerboard.com&sz=64" alt="Sellerboard"></div><div class="ci-body"><div class="ci-title">Sellerboard Tutorial</div><div class="ci-sub">Erhalte Einblicke in die Performance unserer Kunden.<br><a class="ci-link" href="https://www.youtube.com/watch?v=FWjGm5atRcE" target="_blank">→ Sellerboard Tutorial ansehen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">05</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=amalyze.com&sz=64" alt="Amalyze"></div><div class="ci-body"><div class="ci-title">Amalyze SEO-Analyse</div><div class="ci-sub">Hier erfährst du, wie wir bei mala markets SEO-Analysen und Keyword-Recherchen erstellen.<br><a class="ci-link" href="https://www.dropbox.com/scl/fi/qrj3xvwt8qdnslvm26uf5/KWR-ASIN-Liste-mit-Amalyze.mov?rlkey=om0kztei2knms5j3cq3xwiyrz&e=1&dl=0" target="_blank">→ Amalyze Anleitung ansehen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">06</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=merchantspring.io&sz=64" alt="Merchantspring"></div><div class="ci-body"><div class="ci-title">Merchantspring Basics</div><div class="ci-sub">Verstehe, wie wir das Tool nutzen und wie du dich darin zurechtfindest.<br><a class="ci-link" href="https://www.youtube.com/watch?v=pjWeRpXzfrE" target="_blank">→ Merchantspring Tutorial ansehen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">07</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=dropbox.com&sz=64" alt="Dropbox"></div><div class="ci-body"><div class="ci-title">Allgemeine Arbeitsanweisungen lesen</div><div class="ci-sub">Bitte sorgfältig lesen und verinnerlichen.<br><a class="ci-link" href="https://www.dropbox.com/scl/fi/wnto3f5rb0iihnkqlq0c3/Arbeitsanweisungen-f-r-das-gesamte-Team.docx?rlkey=506sj9ntqql6ocxmrerrz1fnu&e=1&dl=0" target="_blank">→ Dokument öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">08</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=dropbox.com&sz=64" alt="Dropbox"></div><div class="ci-body"><div class="ci-title">Arbeitsanweisungen Team Marketplace</div><div class="ci-sub">Bitte sorgfältig lesen und verinnerlichen.<br><a class="ci-link" href="https://www.dropbox.com/scl/fi/an340ifcvd21z89jzsqwf/Arbeitsanweisungen-f-r-Team-Marketplace.docx?rlkey=npkecvitujqgl648wnkf7zdc3&e=1&dl=0" target="_blank">→ Dokument öffnen</a></div></div></div>
+      <div class="ci" onclick="toggleCheck(this, event)"><span class="ci-num">09</span><div class="ci-box"><span class="ci-check">✓</span></div><div class="ci-icon"><img src="https://www.google.com/s2/favicons?domain=dropbox.com&sz=64" alt="Dropbox"></div><div class="ci-body"><div class="ci-title">Basics Kunden-Calls</div><div class="ci-sub">Lese dich in unseren Leitfaden ein – dort findest du die Basics, die wir bei jedem Kundenkontakt berücksichtigen sollten.<br><a class="ci-link" href="https://www.dropbox.com/scl/fi/1mqxipvqigbz2en20ovpa/BASICS-Kunden-Updates.docx?rlkey=3ae00noyiv62o6zmrbu216peu&e=1&dl=0" target="_blank">→ Dokument öffnen</a></div></div></div>
+    </div>
+  </div>
+
+  <!-- 06 HINWEISE -->
+  <div class="sec" id="hinweise">
+    <div class="sec-hd"><span class="s-tag">06</span><span class="s-title">Hinweise & nächste Schritte</span></div>
+    <div class="tip">
+      <div class="tip-lbl">Nach der Checkliste</div>
+      <p>Sobald alle neun Punkte abgehakt sind, empfehlen wir, die bisherige Kommunikation in den Teams-Kundenkanälen zu lesen. So bekommst du schnell ein Gefühl dafür, wie wir mit Kunden und Partnern kommunizieren. Anschließend lohnt es sich, die aktuellen Kundenaccounts gezielt zu analysieren – welche Produkte werden wo verkauft?</p>
+    </div>
+    <div class="tip">
+      <div class="tip-lbl">Bei Fragen</div>
+      <p>Dein Rocket-Buddy Clarissa ist jederzeit für dich da. Wenn sich Fragen häufen: Sammel sie in einem Dokument, dann machen wir einen gemeinsamen Termin und gehen alles durch. Für dringende Fragen ist das Team jederzeit über Microsoft Teams erreichbar.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><span class="toast-emoji" id="toast-emoji"></span><span id="toast-msg"></span></div>
+
+<!-- CONFETTI CANVAS -->
+<canvas class="confetti-canvas" id="confetti"></canvas>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span class="footer-tagline">we boost your marketplace sales</span>
+  <div class="footer-logo">mala <span style="font-size:15px">🚀</span> <span class="outline">markets</span></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+//  ✏️  ONBOARDING CONFIG – NUR DIESEN BEREICH FÜR JEDEN NEUEN MA ANPASSEN
+//
+//  ANLEITUNG:
+//  1. Diese Datei kopieren und umbenennen (z.B. max.html)
+//  2. Nur die Werte unten anpassen – alles andere bleibt unverändert
+//  3. Datei in GitHub unter /[vorname]/index.html hochladen
+//  4. URL: malamarkets.github.io/onboarding/[vorname]/
+// ═══════════════════════════════════════════════════════════════════
+const MA = {
+
+  // ── PERSÖNLICHE DATEN ──────────────────────────────────────────
+  name:        "Fabian",
+  email:       "f.wegener@mala-markets.com",
+  equipment:   false,   // Equipment wird am ersten Tag vor Ort übergeben
+
+  // ── ZEITPLAN ──────────────────────────────────────────────────
+  startDate:   "1. April",
+  phase1Label: "Mi, 01.04.",
+  callDate:    "01.04. um 09:00 Uhr",
+
+  // ── VOR ORT ───────────────────────────────────────────────────
+  vorOrt:        true,
+  vorOrtDisplay: "Ab 1. April",
+  phase2Label:   "Ab Mi, 01.04.",
+
+  // ── HOTEL ─────────────────────────────────────────────────────
+  hotel: null,
+
+  // ── BUDDY ─────────────────────────────────────────────────────
+  buddy: {
+    name: "Clarissa",
+    desc: "Deine persönliche Ansprechpartnerin für alle Fragen – egal ob zu Tools, Prozessen oder dem Arbeitsalltag. Schreib ihr jederzeit über Microsoft Teams."
+  }
+
+};
+// ═══════════════════════════════════════════════════════════════════
+//  AB HIER NICHTS ÄNDERN
+// ═══════════════════════════════════════════════════════════════════
+
+/* ── CONFIG INITIALISIEREN ── */
+function initConfig() {
+  // Persönliche Daten
+  document.getElementById('cfg-name').textContent = MA.name + '.';
+  document.getElementById('cfg-start-date').textContent = MA.startDate;
+  document.getElementById('cfg-email-display').textContent = MA.email;
+  document.getElementById('cfg-email-text').textContent = MA.email;
+
+  // Equipment-Badge
+  if (!MA.equipment) document.getElementById('cfg-equipment-cell').style.display = 'none';
+
+  // Buddy
+  document.getElementById('cfg-buddy-name').textContent = MA.buddy.name;
+  document.getElementById('cfg-buddy-desc').textContent = MA.buddy.desc;
+
+  // Phase 1 Remote
+  document.getElementById('cfg-phase1-header').textContent = MA.phase1Label + ' – Onboarding (remote)';
+
+  // Onboarding Call
+  if (MA.callDate) {
+    document.getElementById('cfg-call-text').textContent = 'Onboarding Call mit dem Team – ' + MA.callDate + '.';
+  } else {
+    document.getElementById('cfg-call-highlight').style.display = 'none';
+  }
+
+  // Vor Ort
+  if (MA.vorOrt) {
+    document.getElementById('cfg-voror-cell').style.display = '';
+    document.getElementById('cfg-vor-ort-display').textContent = MA.vorOrtDisplay;
+    document.getElementById('cfg-phase2-header').textContent = MA.phase2Label + ' – Vor Ort in Dortmund';
+    // Hotel
+    if (MA.hotel && MA.hotel.name) {
+      document.getElementById('cfg-hotel-block').innerHTML =
+        '<strong style="color:#1a1a1a;">' + MA.hotel.name + '</strong><br>' +
+        '📍 ' + MA.hotel.address + '<br>' +
+        '📞 ' + MA.hotel.phone + '<br>' +
+        '<span style="display:inline-flex;gap:16px;margin-top:6px;flex-wrap:wrap;">' +
+          '<span>✅ Check-in: <strong>' + MA.hotel.checkin + '</strong></span>' +
+          '<span>✅ Check-out: <strong>' + MA.hotel.checkout + '</strong></span>' +
+        '</span><br>' + MA.hotel.extras;
+    } else {
+      document.getElementById('cfg-hotel-wrapper').style.display = 'none';
+    }
+  } else {
+    document.getElementById('cfg-voror-cell').style.display = 'none';
+    document.getElementById('cfg-voror-step').style.display = 'none';
+  }
+}
+
+/* ── TOAST ── */
+let toastTimer;
+function showToast(emoji, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toast-emoji').textContent = emoji;
+  document.getElementById('toast-msg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+/* ── CONFETTI ── */
+const canvas = document.getElementById('confetti');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let animating = false;
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
+function launchConfetti(intensity) {
+  const count = intensity === 'big' ? 150 : intensity === 'medium' ? 80 : 40;
+  const colors = ['#d42b2b','#f07070','#27a05a','#fbbf24','#3b82f6','#8b5cf6','#ec4899','#1a1a1a'];
+  for (let i = 0; i < count; i++) {
+    particles.push({ x: Math.random() * canvas.width, y: -10 - Math.random() * 40, w: 6 + Math.random() * 6, h: 4 + Math.random() * 4, color: colors[Math.floor(Math.random() * colors.length)], vx: (Math.random() - 0.5) * 6, vy: 2 + Math.random() * 4, rot: Math.random() * 360, rotV: (Math.random() - 0.5) * 12, life: 1 });
+  }
+  if (!animating) { animating = true; animateConfetti(); }
+}
+function animateConfetti() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.rot += p.rotV; p.life -= 0.006; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180); ctx.globalAlpha = Math.max(0, p.life); ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore(); });
+  particles = particles.filter(p => p.life > 0 && p.y < canvas.height + 20);
+  if (particles.length > 0) requestAnimationFrame(animateConfetti);
+  else { animating = false; ctx.clearRect(0, 0, canvas.width, canvas.height); }
+}
+
+/* ── MILESTONES ── */
+const setupMessages = {
+  1:  { emoji: '🚀', msg: 'Los geht\'s! Erster Punkt erledigt!' },
+  3:  { emoji: '💪', msg: 'Stark! Schon 3 Tools eingerichtet!' },
+  6:  { emoji: '🔥', msg: 'Über die Hälfte! Du bist on fire!' },
+  9:  { emoji: '⭐', msg: 'Fast geschafft – nur noch 2!' },
+  11: { emoji: '🎉', msg: 'Setup komplett! Du bist bereit!' }
+};
+const checkMessages = {
+  1: { emoji: '📚', msg: 'Erster Schritt geschafft!' },
+  3: { emoji: '🧠', msg: 'Du lernst schnell – weiter so!' },
+  5: { emoji: '🏆', msg: 'Über die Hälfte! Mega!' },
+  7: { emoji: '🔥', msg: 'Nur noch 2 – du rockst das!' },
+  9: { emoji: '🎊', msg: 'Onboarding abgeschlossen! Willkommen im Team!' }
+};
+
+/* ── LOCALSTORAGE ── */
+function saveSetupState() {
+  const items = document.querySelectorAll('#setup-list .ci');
+  const state = Array.from(items).map(item => item.classList.contains('done'));
+  localStorage.setItem('mala_setup_state', JSON.stringify(state));
+}
+function saveCheckState() {
+  const items = document.querySelectorAll('#check-list .ci');
+  const state = Array.from(items).map(item => item.classList.contains('done'));
+  localStorage.setItem('mala_check_state', JSON.stringify(state));
+}
+function restoreState() {
+  // Setup
+  const setupState = JSON.parse(localStorage.getItem('mala_setup_state') || '[]');
+  const setupItems = document.querySelectorAll('#setup-list .ci');
+  setupItems.forEach((item, i) => { if (setupState[i]) item.classList.add('done'); });
+  const setupDone = document.querySelectorAll('#setup-list .ci.done').length;
+  document.getElementById('setup-fill').style.width = Math.round(setupDone / setupItems.length * 100) + '%';
+  document.getElementById('setup-num').textContent = setupDone + ' / ' + setupItems.length;
+  // Check
+  const checkState = JSON.parse(localStorage.getItem('mala_check_state') || '[]');
+  const checkItems = document.querySelectorAll('#check-list .ci');
+  checkItems.forEach((item, i) => { if (checkState[i]) item.classList.add('done'); });
+  const checkDone = document.querySelectorAll('#check-list .ci.done').length;
+  document.getElementById('prog-fill').style.width = Math.round(checkDone / checkItems.length * 100) + '%';
+  document.getElementById('prog-num').textContent = checkDone + ' / ' + checkItems.length;
+}
+
+/* ── TOOL CARDS ── */
+function toggleTool(card, e) {
+  if (e && e.target.closest('.tc-link')) return;
+  const d = card.querySelector('.tc-detail');
+  if (!d) return;
+  const open = d.classList.contains('open');
+  document.querySelectorAll('.tc-detail.open').forEach(x => x.classList.remove('open'));
+  if (!open) d.classList.add('open');
+}
+
+/* ── SETUP CHECKLIST ── */
+function toggleSetup(item, e) {
+  if (e && e.target.closest('.ci-link')) return;
+  const wasDone = item.classList.contains('done');
+  item.classList.toggle('done');
+  const list = document.getElementById('setup-list');
+  const all = list.querySelectorAll('.ci').length;
+  const done = list.querySelectorAll('.ci.done').length;
+  document.getElementById('setup-fill').style.width = Math.round(done / all * 100) + '%';
+  document.getElementById('setup-num').textContent = done + ' / ' + all;
+  saveSetupState();
+  if (!wasDone && done > 0) {
+    item.classList.add('milestone-glow');
+    setTimeout(() => item.classList.remove('milestone-glow'), 700);
+    if (setupMessages[done]) {
+      const m = setupMessages[done];
+      showToast(m.emoji, m.msg);
+      if (done === all) launchConfetti('big');
+      else if (done >= 5) launchConfetti('medium');
+      else launchConfetti('small');
+    }
+  }
+}
+
+/* ── ONBOARDING CHECKLIST ── */
+function toggleCheck(item, e) {
+  if (e && e.target.closest('.ci-link')) return;
+  const wasDone = item.classList.contains('done');
+  item.classList.toggle('done');
+  const list = document.getElementById('check-list');
+  const all = list.querySelectorAll('.ci').length;
+  const done = list.querySelectorAll('.ci.done').length;
+  document.getElementById('prog-fill').style.width = Math.round(done / all * 100) + '%';
+  document.getElementById('prog-num').textContent = done + ' / ' + all;
+  saveCheckState();
+  if (!wasDone && done > 0) {
+    item.classList.add('milestone-glow');
+    setTimeout(() => item.classList.remove('milestone-glow'), 700);
+    if (checkMessages[done]) {
+      const m = checkMessages[done];
+      showToast(m.emoji, m.msg);
+      if (done === all) launchConfetti('big');
+      else if (done >= 5) launchConfetti('medium');
+      else launchConfetti('small');
+    }
+  }
+}
+
+/* ── SCROLL ANIMATIONS ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+}, { threshold: 0.06 });
+document.querySelectorAll('.sec').forEach((s, i) => { s.style.transitionDelay = (i * 0.04) + 's'; obs.observe(s); });
+
+const pills = document.querySelectorAll('.t-pill');
+const secs = document.querySelectorAll('.sec');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  secs.forEach(s => { if (window.scrollY >= s.offsetTop - 80) cur = s.id; });
+  pills.forEach(p => p.classList.toggle('active', p.getAttribute('href') === '#' + cur));
+});
+
+/* ── RESTORE ON LOAD ── */
+initConfig();
+restoreState();
+</script>
+</body>
+</html>
